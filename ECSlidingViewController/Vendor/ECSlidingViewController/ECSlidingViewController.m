@@ -95,8 +95,9 @@ NSString *const ECSlidingViewTopDidReset          = @"ECSlidingViewTopDidReset";
   [_topViewController.view removeFromSuperview];
   [_topViewController willMoveToParentViewController:nil];
   [_topViewController removeFromParentViewController];
-  
-  _topViewController = theTopViewController;
+
+  [_topViewController release];
+  _topViewController = [theTopViewController retain];
   
   [self addChildViewController:self.topViewController];
   [self.topViewController didMoveToParentViewController:self];
@@ -105,7 +106,7 @@ NSString *const ECSlidingViewTopDidReset          = @"ECSlidingViewTopDidReset";
   [_topViewController.view setFrame:self.view.bounds];
   _topViewController.view.layer.shadowOffset = CGSizeZero;
   _topViewController.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.layer.bounds].CGPath;
-  
+  _topViewController.view.layer.shadowRadius = 5.0;
   [self.view addSubview:_topViewController.view];
 }
 
@@ -599,6 +600,15 @@ NSString *const ECSlidingViewTopDidReset          = @"ECSlidingViewTopDidReset";
   } else {
     [NSException raise:@"Invalid Width Layout" format:@"underRightWidthLayout must be a valid ECViewWidthLayout"];
   }
+}
+
+#pragma mark -
+#pragma mark I AIN'T NO ARC B***CH!
+//============================================================================================================
+
+- (void)dealloc {
+    [_topViewController release], _topViewController = nil;
+    [super dealloc];
 }
 
 @end

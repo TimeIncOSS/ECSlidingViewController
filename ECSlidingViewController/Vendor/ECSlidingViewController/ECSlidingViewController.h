@@ -74,7 +74,7 @@ typedef enum {
  
  This is the main view controller that is presented above the other view controllers.
  */
-@property (nonatomic, strong) UIViewController *topViewController;
+@property (nonatomic, retain) UIViewController *topViewController;
 
 /** Returns the number of points the top view is visible when the top view is anchored to the left side.
  
