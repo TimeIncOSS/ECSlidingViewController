@@ -118,15 +118,17 @@ NSString *const ECSlidingViewTopDidReset = @"ECSlidingViewTopDidReset";
     [_topViewController release];
     _topViewController = [theTopViewController retain];
 
-    [self addChildViewController:self.topViewController];
-    [self.topViewController didMoveToParentViewController:self];
+    if (_topViewController) {
+        [self addChildViewController:self.topViewController];
+        [self.topViewController didMoveToParentViewController:self];
 
-    [_topViewController.view setAutoresizingMask:self.autoResizeToFillScreen];
-    [_topViewController.view setFrame:self.view.bounds];
-    _topViewController.view.layer.shadowOffset = CGSizeZero;
-    _topViewController.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.layer.bounds].CGPath;
-    _topViewController.view.layer.shadowRadius = 5.0;
-    [self.view addSubview:_topViewController.view];
+        [_topViewController.view setAutoresizingMask:self.autoResizeToFillScreen];
+        [_topViewController.view setFrame:self.view.bounds];
+        _topViewController.view.layer.shadowOffset = CGSizeZero;
+        _topViewController.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.layer.bounds].CGPath;
+        _topViewController.view.layer.shadowRadius = 5.0;
+        [self.view addSubview:_topViewController.view];
+    }
 }
 
 - (void)setUnderLeftViewController:(UIViewController *)theUnderLeftViewController {
